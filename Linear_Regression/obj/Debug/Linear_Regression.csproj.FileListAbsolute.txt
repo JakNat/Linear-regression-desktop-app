@@ -1,0 +1,14 @@
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linear_Regression.exe.config
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linear_Regression.exe
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linear_Regression.pdb
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.csprojAssemblyReference.cache
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.Properties.Resources.resources
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.csproj.GenerateResource.cache
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.csproj.CoreCompileInputs.cache
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.exe
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.pdb
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.Form1.resources
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linear_Regression.exe.manifest
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linear_Regression.application
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.exe.manifest
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.application

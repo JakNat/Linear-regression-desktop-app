@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Linear_Regression.exe" version="1.0.0.9" publicKeyToken="413e4bfc8ace6832" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Linear_Regression" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Linear_Regression.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Linear_Regression.exe" size="29160">
+      <assemblyIdentity name="Linear_Regression" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>gedh9VXpug0x5dyJMDKc3izHom3wrlGg4PCB+piM2Qc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Linear_Regression.exe.config" size="189">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>wDmrlTz6aNIp269ZO0+f+NuBph+l7PSF+/aeuhX4N/I=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DESKTOP-FO6L2P0\bobotb" issuerKeyHash="7b586409ccaaf7975b43b863c01540437d0b633f" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>g9/0ExIQQ4zZOQeNHI/S/I8Nese3P3v61yrt3j/gyjw=</DigestValue></Reference></SignedInfo><SignatureValue>WHHh3EzNfiIN4ysdSavmfpc7B0avqFHeQCYSqqTxtPiqKhMeHV0eM+RwNOPJpPyE70MAWUz54A00QSTyJxCeoItG7O6APSrJAoHm8wpUU4cPqEhweTwOSSsP5o/uEZVAnnt23C+Edv+FOiUdmpOPacdtoeyQaytqobL1rE8nBxI=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sqLHVdmYXz2LCtBL5mAmY2mlqz1sOPy0OyIAeJa7Tu4eJwUCAi545WprB6R8HVDGd5TFw2YWXLdgT0kxgoQQwPpUcueJAJOuWDl1tWPoW0MjhOEKn5wNw0Dx+iqKuOIT19LKM4dN4167frREEmcgPDynFPFWLH4PQOw9S6CAG0E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="3ccae03fdeed2ad7fa7b3fb7c77a0d8ffcd28f1c8d0739d98c43101213f4df83" Description="" Url=""><as:assemblyIdentity name="Linear_Regression.exe" version="1.0.0.9" publicKeyToken="413e4bfc8ace6832" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DESKTOP-FO6L2P0\bobotb</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>/3C4cCjGVfpOctbEbqljclybIzxVuGqjLBjyLmOgtcA=</DigestValue></Reference></SignedInfo><SignatureValue>N/9jR3bKMD8BRsdt8awdxsT5MW/nCQZ5jBud/gOdIOL5yG86+e7RsTvl1ORwaybqgmFVrSYHnxlgrTusFfs03bgAJ0CBQ7HuCopXhunt1Yf+YbQATb++G1HBdfOgfc+KAEjXKysQW7aPiG2lPb0rJtPDQ8uDAKkBoW8yxp1XrQY=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sqLHVdmYXz2LCtBL5mAmY2mlqz1sOPy0OyIAeJa7Tu4eJwUCAi545WprB6R8HVDGd5TFw2YWXLdgT0kxgoQQwPpUcueJAJOuWDl1tWPoW0MjhOEKn5wNw0Dx+iqKuOIT19LKM4dN4167frREEmcgPDynFPFWLH4PQOw9S6CAG0E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB8TCCAVqgAwIBAgIQc/N+ZnHAYZBCgjmnk6Bc1TANBgkqhkiG9w0BAQsFADA3MTUwMwYDVQQDHiwARABFAFMASwBUAE8AUAAtAEYATwA2AEwAMgBQADAAXABiAG8AYgBvAHQAYjAeFw0xODA2MjcxMTQ5NTNaFw0xOTA2MjcxNzQ5NTNaMDcxNTAzBgNVBAMeLABEAEUAUwBLAFQATwBQAC0ARgBPADYATAAyAFAAMABcAGIAbwBiAG8AdABiMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyosdV2ZhfPYsK0EvmYCZjaaWrPWw4/LQ7IgB4lrtO7h4nBQICLnjlamsHpHwdUMZ3lMXDZhZct2BPSTGChBDA+lRy54kAk65YOXW1Y+hbQyOE4QqfnA3DQPH6Koq44hPX0sozh03jXrt+tEQSZyA8PKcU8VYsfg9A7D1LoIAbQQIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAEsyhgrrTS60M17rmy/Hdt+gbK2xAo6i+I5Nmi+Z+cpKqjq+DFMJeJZT2U54TNRWONNeBIcUnVn25gx6lsMcJO94gA4W7dihv6Gr7vYUzVRmwcnT3TU98XEcJkemQONj+A10ecp3kA9Iurb7VPzgveScfd0eBjFVYWw733PTJXtd</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
