@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
+
 
 namespace Linear_Regression.Tests
 {
@@ -53,16 +53,29 @@ namespace Linear_Regression.Tests
             dictionaryTest.Add(8, 32);
             dictionaryTest.Add(9, 33);
             dictionaryTest.Add(10, 37);
-            RegChart testReg = new RegChart(dictionaryTest);
-            Chart chart
+
+            List<Tuple<double, double>> tuplesTest = new List<Tuple<double, double>>();
+            tuplesTest.Add(new Tuple<double, double>(1, 1));
+            tuplesTest.Add(new Tuple<double, double>(2, 4));
+            tuplesTest.Add(new Tuple<double, double>(3, 6));
+            tuplesTest.Add(new Tuple<double, double>(4, 10));
+            tuplesTest.Add(new Tuple<double, double>(5, 12));
+            tuplesTest.Add(new Tuple<double, double>(6, 16));
+            tuplesTest.Add(new Tuple<double, double>(7, 22));
+            tuplesTest.Add(new Tuple<double, double>(8, 32));
+            tuplesTest.Add(new Tuple<double, double>(9, 33));
+            tuplesTest.Add(new Tuple<double, double>(10, 37));
+;
+
+
             // act
-            double a = Math.Round(testReg.Coefficients.Key, 2);
-            double b = Math.Round(testReg.Coefficients.Value, 2);
+            RegChart dictionaryReg = new RegChart(dictionaryTest);
+            RegChart tuplesReg = new RegChart(tuplesTest);
 
             //asert
 
-            Assert.AreEqual(b, 4.22);
-            Assert.AreEqual(a, -5.93);
+            Assert.AreEqual(dictionaryReg.Coefficients, tuplesReg.Coefficients);
+        
 
         }
 
