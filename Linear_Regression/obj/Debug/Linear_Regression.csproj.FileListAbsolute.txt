@@ -12,3 +12,4 @@ C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linea
 C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\bin\Debug\Linear_Regression.application
 C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.exe.manifest
 C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.application
+C:\Users\bobotb\source\repos\Linear_Regression\Linear_Regression\obj\Debug\Linear_Regression.RegChart.resources

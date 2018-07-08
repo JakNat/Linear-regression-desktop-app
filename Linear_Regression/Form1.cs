@@ -17,12 +17,15 @@ namespace Linear_Regression
         private bool b2 = false;
         private bool b3 = false;
         private List<TrackBar> trackBars; 
+        private List<double> listX = new List<double>(); 
         private double x11 = -1;
         private double new_x11 = -1;
         private double x12 = -2;
         private double new_x12 = -1;
-
+        
+     
         private Dictionary<double, double> list;
+        private Dictionary<double, double> list2;
         public Form1()
         {
            
@@ -33,6 +36,7 @@ namespace Linear_Regression
    
         private void Form1_Load(object sender, EventArgs e)
         {
+        
             trackBars = new List<TrackBar> {
                 trackBar5,
                 trackBar6,
@@ -44,9 +48,13 @@ namespace Linear_Regression
                 trackBar12,
                 trackBar13,
                 trackBar14,
-                trackBar15
+                
                 };
-
+         
+            for (int i = 0; i < 10; i++)
+            {
+                this.listX.Add((i) * 10);
+            }
             foreach (var trackbar in trackBars)
             {
                 trackbar.Scroll += new EventHandler(trackBarr_Scroll);
@@ -63,33 +71,14 @@ namespace Linear_Regression
         }
 
     
-        double Function(double value, double b, double a)
+        Dictionary<double, double> CreateDictionary(List<double> xlist ,List<TrackBar> clist)
         {
-            return value * b + a;
-        }
-        double MeanX(Dictionary<double,double> list)
-        {
-            return list.Select(x => x.Key).Sum() / list.Count;
-        }
-
-        double MeanY(Dictionary<double, double> list)
-        {
-            return list.Select(x => x.Value).Sum() / list.Count;
-        }
-        double FactorB(Dictionary<double, double> list)
-        {  // srednia x
-            double meanX = MeanX(list);
-            // srednia y
-            double meanY = MeanY(list);          
-           return list.Sum(x => (x.Value - meanY)*(x.Key - meanX)) /
-                   list.Sum(x => (x.Key - meanX) * (x.Key - meanX));
-        }
-         double FactorA(Dictionary<double,double> list)
-        {
-            double meanX = MeanX(list);
-            double meanY = MeanY(list);
-            double b = FactorB(list);
-            return meanY - (b * meanX);
+            Dictionary<double, double> newDict = new Dictionary<double, double>();
+            for (int i = 0; i < xlist.Count; i++)
+            {
+                newDict.Add(xlist[i], (double)clist[i].Value);
+            }
+            return newDict;
         }
         void Chartconfiguration()
         {
@@ -127,46 +116,15 @@ namespace Linear_Regression
         {
             ClearChart("REGRESJA");
             ClearChart("Wartość");
+            var dict = CreateDictionary(this.listX, trackBars);
+            RegChart baseRegChart = new RegChart(dict);
 
-            this.list = null;
-            List<double> listX = new List<double>();
-            List<double> listY = new List<double>();
-            for (int i = 0; i < 10; i++)
-            {
-                listX.Add((i + 1) * 10);
-            }
-                foreach(var trackbar in trackBars)
-                {
-                    listY.Add(double.Parse(trackbar.Value.ToString()));
-                }
-                
-            Dictionary<double,double> list = new Dictionary<double,double>();
-                list.Add(0, 0);
-                for (int i = 0; i < listY.Count - 1; i++)
-                {
-                    list.Add(listX[i], listY[i]);
-                }
-      
-                this.list = list;
-            RegChart baseRegChart = new RegChart(list);
-                double b = FactorB(list);
-                double a = FactorA(list);
-                printLineChart(this.list, "REGRESJA", baseRegChart.Coefficients.Value, baseRegChart.Coefficients.Key);
-                chart1.Series["REGRESJA"].Color = Color.Black;
-            chart1.Series[0].IsVisibleInLegend = false;
-            foreach (var key in list)
+           baseRegChart.PrintLineChart("REGRESJA", ref chart1);
+
+            foreach (var key in dict)
             {
                 chart1.Series["Wartość"].Points.AddXY(key.Key, key.Value);
             }
-            try
-            {
-            }
-            catch (Exception)
-            {
-                return;
-            }
-
-
         }
         void ChartPointConfiguration(string name, SeriesChartType type ,Color color, int MarkerSize, bool isVisible)
         {
@@ -176,61 +134,56 @@ namespace Linear_Regression
             chart1.Series[name].IsVisibleInLegend = isVisible;
 
         }
-        private void button2_Click2(object sender, EventArgs e,ref TextBox xBox,ref TextBox yBox,ref TrackBar xBar,ref TrackBar yBar, string regName, string valueName,ref  bool bol, ref double newX ,ref double oldX)
-        {
-            bol = true;
-            double X = double.Parse(xBox.Text);
-            newX = X;
-            double Y = double.Parse(yBox.Text);
-            ClearChart(regName);
-            ClearChart(valueName);
-            if (bol)
-            {
-                this.list.Remove(oldX);
-            }
-            if (this.b2)
-            {
-                this.list.Remove(this.x12);
-            }
-            if ((int)X >= xBar.Minimum && (int)X <= xBar.Maximum)
-            {
-                xBar.Value = (int)X;
-            }
-            if ((int)Y >= yBar.Minimum && (int)Y <= yBar.Maximum)
-            {
-                yBar.Value = (int)Y;
-            }
-            oldX = newX;
-           
-            this.list.Add(X, Y);
-            this.list = this.list.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
-            this.list.Count();
-            double b = FactorB(this.list);
-            double a = FactorA(this.list);
-            chart1.Series[valueName].Points.AddXY(X, Y);
-            printLineChart(this.list, regName, b, a);
+     
+   
+      
         
-        }
         private void button2_Click(object sender, EventArgs e)
         {
+            b1 = true;
+            trackBar4.Value = (int)double.Parse(textBox13.Text);
+            List<TrackBar> trackBarsButton2 = new List<TrackBar>(this.trackBars); 
+            trackBarsButton2.Add(trackBar1);
+            List<double> listX_btn = new List<double>(this.listX);
+            listX_btn.Add(trackBar4.Value);
             if (double.Parse(textBox13.Text) % 10 == 0 || double.Parse(textBox13.Text) == double.Parse(textBox14.Text))
             {
                 return;
             }
-            button2_Click2(sender, e, ref textBox13, ref textBox11, ref trackBar4, ref trackBar1,  "REGRESJA 1", "Wartość 11", ref this.b1, ref this.new_x11, ref this.x11);
-            this.b2 = false;
+            button22_Click2(sender, e, trackBarsButton2, listX_btn, "REGRESJA 1", "Wartość 11");
             if (b3)
             {
                 button3_Click_1(sender, e);
             }
         }
+        private void button22_Click2(object sender, EventArgs e, List<TrackBar> btn_trackBars, List<double> listX, string regName, string valuName)
+        {
+            ClearChart(regName);
+            ClearChart(valuName);
+            Dictionary<double, double> dictionary = CreateDictionary(listX, btn_trackBars);
+           
+            RegChart baseRegChart = new RegChart(dictionary);
+
+            baseRegChart.PrintLineChart(regName, ref chart1);
+            chart1.Series[valuName].Points.AddXY(dictionary.Select(x => x.Key).Last(x => x % 10 != 0), dictionary[dictionary.Select(x => x.Key).Last(x => x % 10 != 0)]);
+            
+
+        }
+
         private void button3_Click_1(object sender, EventArgs e)
         {
+            trackBar15.Value = (int)double.Parse(textBox14.Text);
+            List<TrackBar> trackBarsButton3 = new List<TrackBar>(this.trackBars);
+            trackBarsButton3.Add(trackBar1);
+            trackBarsButton3.Add(trackBar2);
+            List<double> listX_btn = new List<double>(this.listX);
+            listX_btn.Add(double.Parse(textBox13.Text));
+            listX_btn.Add(double.Parse(textBox14.Text));
             if (double.Parse(textBox14.Text) % 10 == 0 || double.Parse(textBox13.Text) == double.Parse(textBox14.Text))
             {
                 return;
             }
-            button2_Click2(sender, e, ref textBox14, ref textBox12, ref trackBar15, ref trackBar2, "REGRESJA 2", "Wartość 12", ref this.b2, ref this.new_x12, ref this.x12);
+            button22_Click2(sender, e, trackBarsButton3, listX_btn, "REGRESJA 2", "Wartość 12");
             this.b3 = true;
         }
 
@@ -239,32 +192,8 @@ namespace Linear_Regression
             chart1.Series[name].Points.Clear();
         }
 
-        void printLineChart(Dictionary<double, double> list, string SeriesName, double b, double a)
-        {
-
-            chart1.Series[0].IsVisibleInLegend = false;
-            chart1.Series[SeriesName].ChartType = SeriesChartType.Spline;
-            foreach (var key in list)
-            {
-                chart1.Series[SeriesName].Points.AddXY(key.Key, Function(key.Key, b, a));
-            }
-        }
-      
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
+       
+ 
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -280,46 +209,14 @@ namespace Linear_Regression
             button3_Click_1(sender, e);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label14_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+    
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             chart1.ChartAreas[0].AxisY.Maximum = trackBar3.Value;
             chart1.ChartAreas[0].AxisY.Minimum = 0;
             
         }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar4_Scroll(object sender, EventArgs e)
-        {
-           
-
-        }
-
-        private void trackBar5_Scroll(object sender, EventArgs e)
-        {
-            textBox1.Text = trackBar5.Value.ToString();
-
-        }
-
-        private void trackBar6_Scroll(object sender, EventArgs e)
-        {
-            textBox2.Text = trackBar6.Value.ToString();
-      
-   
-        }
+        #region 5 - 14 trackbars scroll
         private void trackBarr_Scroll(object sender, EventArgs e)
         {
             button1_Click_1(sender, e);
@@ -332,22 +229,36 @@ namespace Linear_Regression
                 trackBar2_Scroll(sender, e);
             }
         }
+
+        private void trackBar5_Scroll(object sender, EventArgs e)
+        {
+            textBox1.Text = trackBar5.Value.ToString();
+
+        }
+
+        private void trackBar6_Scroll(object sender, EventArgs e)
+        {
+            textBox2.Text = trackBar6.Value.ToString();
+
+
+        }
+
         private void trackBar7_Scroll(object sender, EventArgs e)
         {
             textBox3.Text = trackBar7.Value.ToString();
-         
+
         }
         private void trackBar8_Scroll(object sender, EventArgs e)
         {
             textBox4.Text = trackBar8.Value.ToString();
-           
+
 
         }
 
         private void trackBar9_Scroll(object sender, EventArgs e)
         {
             textBox5.Text = trackBar9.Value.ToString();
-       
+
         }
 
         private void trackBar10_Scroll(object sender, EventArgs e)
@@ -376,15 +287,57 @@ namespace Linear_Regression
             textBox10.Text = trackBar14.Value.ToString();
 
         }
+        #endregion
 
-      
+
+
+        #region generated code
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void buttonEvent(List<TrackBar> trackBars, List<double> xList)
+        {
+
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
 
-      
+
         private void chart_Click(object sender, EventArgs e)
         {
 
@@ -407,15 +360,17 @@ namespace Linear_Regression
 
         private void textBox13_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click_2(object sender, EventArgs e)
         {
 
         }
+        #endregion
 
-       
+
+
 
         private void trackBar4_Scroll_1(object sender, EventArgs e)
         {
@@ -491,7 +446,6 @@ namespace Linear_Regression
                     control.Visible = true;
                 }
             }
-            
         }
     }
 }

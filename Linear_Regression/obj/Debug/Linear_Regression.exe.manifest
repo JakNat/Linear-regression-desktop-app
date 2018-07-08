@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Linear_Regression.exe" size="30184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Linear_Regression.exe" size="29160">
       <assemblyIdentity name="Linear_Regression" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lCDm6vhSmnfqmvb1KEl7y/zlkS4aHWWiLWHWRnx71WE=</dsig:DigestValue>
+        <dsig:DigestValue>QyGhlVPnI0PwNq9HPudV95V9e/lB/0/s9Ki6/LKQki4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Linear_Regression
 {
-    class ChartUi
+    static class  ChartUi
     {
     }
 }
