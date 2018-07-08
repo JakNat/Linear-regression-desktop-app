@@ -17,15 +17,9 @@ namespace Linear_Regression
         private bool b2 = false;
         private bool b3 = false;
         private List<TrackBar> trackBars; 
-        private List<double> listX = new List<double>(); 
-        private double x11 = -1;
-        private double new_x11 = -1;
-        private double x12 = -2;
-        private double new_x12 = -1;
-        
-     
-        private Dictionary<double, double> list;
-        private Dictionary<double, double> list2;
+        private List<double> listX = new List<double>();
+
+        private List<Tuple<double, double>> tupleList = new List<Tuple<double, double>>();
         public Form1()
         {
            
@@ -63,29 +57,23 @@ namespace Linear_Regression
             checkBox1_CheckedChanged(sender, e);
             Chartconfiguration();  
             button1_Click_1(sender, e);
-            //      trackBar1_Scroll(sender, e);
-            //    trackBar2_Scroll(sender, e); trackBar5.Scroll += new EventHandler(trackBar6_Scroll);
-           
-
 
         }
 
-    
-        Dictionary<double, double> CreateDictionary(List<double> xlist ,List<TrackBar> clist)
-        {
-            Dictionary<double, double> newDict = new Dictionary<double, double>();
+        List<Tuple<double, double>> CreateTupleList(List<double> xlist, List<TrackBar> clist) 
+            {
+            List<Tuple<double, double>> newTup = new List<Tuple<double, double>>();
             for (int i = 0; i < xlist.Count; i++)
             {
-                newDict.Add(xlist[i], (double)clist[i].Value);
+                newTup.Add(new Tuple<double, double>(xlist[i], (double)clist[i].Value));
             }
-            return newDict;
+            return newTup;
         }
+        #region Chart conf
         void Chartconfiguration()
         {
-           
-        
             chart1.Series.Add("Wartość");
-            ChartPointConfiguration("Wartość",SeriesChartType.Point, Color.Black, 8, true);
+            ChartPointConfiguration("Wartość", SeriesChartType.Point, Color.Black, 8, true);
             chart1.Series.Add("Wartość 11");
             ChartPointConfiguration("Wartość 11", SeriesChartType.Point, Color.Blue, 8, true);
             chart1.Series.Add("Wartość 12");
@@ -96,34 +84,26 @@ namespace Linear_Regression
             ChartPointConfiguration("REGRESJA 1", SeriesChartType.Spline, Color.Blue, 20, true);
             chart1.Series.Add("REGRESJA 2");
             ChartPointConfiguration("REGRESJA 2", SeriesChartType.Spline, Color.Red, 9, true);
-
-
             var chart = chart1.ChartAreas[0];
             chart.AxisX.IntervalType = DateTimeIntervalType.Number;
-
             chart.AxisX.LabelStyle.Format = "";
             chart.AxisY.LabelStyle.Format = "";
             chart.AxisY.LabelStyle.IsEndLabelVisible = true;
-
             chart.AxisX.Minimum = 0;
             chart.AxisX.Maximum = 100;
-
             chart.AxisX.Interval = 12;
             chart.AxisY.Interval = 20;
-
         }
+        #endregion
+
         private void button1_Click_1(object sender, EventArgs e)
         {
-            ClearChart("REGRESJA");
             ClearChart("Wartość");
-            var dict = CreateDictionary(this.listX, trackBars);
-            RegChart baseRegChart = new RegChart(dict);
-
-           baseRegChart.PrintLineChart("REGRESJA", ref chart1);
-
-            foreach (var key in dict)
+            var tupl = CreateTupleList(this.listX, trackBars);
+            DrawNewLine(trackBars, listX, "REGRESJA");
+            foreach (var key in tupl)
             {
-                chart1.Series["Wartość"].Points.AddXY(key.Key, key.Value);
+                chart1.Series["Wartość"].Points.AddXY(key.Item1, key.Item2);
             }
         }
         void ChartPointConfiguration(string name, SeriesChartType type ,Color color, int MarkerSize, bool isVisible)
@@ -132,12 +112,7 @@ namespace Linear_Regression
             chart1.Series[name].Color= color;
             chart1.Series[name].MarkerSize = MarkerSize;
             chart1.Series[name].IsVisibleInLegend = isVisible;
-
-        }
-     
-   
-      
-        
+        }        
         private void button2_Click(object sender, EventArgs e)
         {
             b1 = true;
@@ -146,28 +121,19 @@ namespace Linear_Regression
             trackBarsButton2.Add(trackBar1);
             List<double> listX_btn = new List<double>(this.listX);
             listX_btn.Add(trackBar4.Value);
-            if (double.Parse(textBox13.Text) % 10 == 0 || double.Parse(textBox13.Text) == double.Parse(textBox14.Text))
-            {
-                return;
-            }
-            button22_Click2(sender, e, trackBarsButton2, listX_btn, "REGRESJA 1", "Wartość 11");
+            DrawNewLine(trackBarsButton2, listX_btn,"REGRESJA 1");
+            ClearChart("Wartość 11");
+            chart1.Series["Wartość 11"].Points.AddXY(trackBar4.Value, trackBar1.Value);
             if (b3)
             {
                 button3_Click_1(sender, e);
             }
         }
-        private void button22_Click2(object sender, EventArgs e, List<TrackBar> btn_trackBars, List<double> listX, string regName, string valuName)
+        private void DrawNewLine(List<TrackBar> btn_trackBars, List<double> listX, string regName)
         {
-            ClearChart(regName);
-            ClearChart(valuName);
-            Dictionary<double, double> dictionary = CreateDictionary(listX, btn_trackBars);
-           
-            RegChart baseRegChart = new RegChart(dictionary);
-
-            baseRegChart.PrintLineChart(regName, ref chart1);
-            chart1.Series[valuName].Points.AddXY(dictionary.Select(x => x.Key).Last(x => x % 10 != 0), dictionary[dictionary.Select(x => x.Key).Last(x => x % 10 != 0)]);
-            
-
+            ClearChart(regName);        
+            RegChart tupleRegChart = new RegChart(CreateTupleList(listX, btn_trackBars));
+            tupleRegChart.PrintLineChartTuple(regName, ref chart1);                    
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -179,43 +145,103 @@ namespace Linear_Regression
             List<double> listX_btn = new List<double>(this.listX);
             listX_btn.Add(double.Parse(textBox13.Text));
             listX_btn.Add(double.Parse(textBox14.Text));
-            if (double.Parse(textBox14.Text) % 10 == 0 || double.Parse(textBox13.Text) == double.Parse(textBox14.Text))
-            {
-                return;
-            }
-            button22_Click2(sender, e, trackBarsButton3, listX_btn, "REGRESJA 2", "Wartość 12");
+            DrawNewLine(trackBarsButton3, listX_btn, "REGRESJA 2");
+            ClearChart("Wartość 12");
+            chart1.Series["Wartość 12"].Points.AddXY(trackBar15.Value, trackBar2.Value);
             this.b3 = true;
         }
 
         private void ClearChart(string name)
         {
             chart1.Series[name].Points.Clear();
-        }
-
-       
- 
-
+        }    
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             textBox11.Text = trackBar1.Value.ToString();
             button2_Click(sender, e);
         }
-     
-
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
 
             textBox12.Text = trackBar2.Value.ToString();
             button3_Click_1(sender, e);
-        }
-
-    
+        }         
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             chart1.ChartAreas[0].AxisY.Maximum = trackBar3.Value;
             chart1.ChartAreas[0].AxisY.Minimum = 0;
             
         }
+        
+              
+        
+
+        private void trackBar4_Scroll_1(object sender, EventArgs e)
+        {
+            textBox13.Text = trackBar4.Value.ToString();
+            button2_Click(sender, e);
+           
+        }
+        private void trackBar15_Scroll(object sender, EventArgs e)
+        {
+            textBox14.Text = trackBar15.Value.ToString();
+            button3_Click_1(sender, e);
+        }
+        #region Checked(true-false)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            List<Control> controls = new List<Control>
+        {
+            trackBar5,
+            trackBar6,
+            trackBar7,
+            trackBar8,
+            trackBar9,
+            trackBar10,
+            trackBar11,
+            trackBar12,
+            trackBar13,
+            trackBar14,
+            textBox1,
+            textBox2,
+            textBox3,
+            textBox4,
+            textBox5,
+            textBox6,
+            textBox7,
+            textBox8,
+            textBox9,
+            textBox10,
+            label2,
+            label3,
+            label4,
+            label5,
+            label6,
+            label7,
+            label8,
+            label9,
+            label10,
+            label11,
+            button1
+        };
+
+            if (checkBox1.Checked)
+            {
+                foreach (var control in controls)
+                {
+                    control.Visible = false;
+                }
+            }
+            else
+            {
+                foreach (var control in controls)
+                {
+                    control.Visible = true;
+                }
+            }
+        }
+        #endregion
+
         #region 5 - 14 trackbars scroll
         private void trackBarr_Scroll(object sender, EventArgs e)
         {
@@ -288,8 +314,6 @@ namespace Linear_Regression
 
         }
         #endregion
-
-
 
         #region generated code
         private void label12_Click(object sender, EventArgs e)
@@ -368,84 +392,5 @@ namespace Linear_Regression
 
         }
         #endregion
-
-
-
-
-        private void trackBar4_Scroll_1(object sender, EventArgs e)
-        {
-           
-            if(trackBar4.Value % 10 == 0 || trackBar4.Value == trackBar15.Value)
-            {
-                return;
-            }
-            textBox13.Text = trackBar4.Value.ToString();
-            button2_Click(sender, e);
-           
-        }
-
-      
-
-        private void trackBar15_Scroll(object sender, EventArgs e)
-        {
-            if (trackBar15.Value % 10 == 0 || trackBar4.Value == trackBar15.Value)
-            {
-                return;
-            }
-            textBox14.Text = trackBar15.Value.ToString();
-            button3_Click_1(sender, e);
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            List<Control> controls = new List<Control>
-        {
-            trackBar5,
-            trackBar6,
-            trackBar7,
-            trackBar8,
-            trackBar9,
-            trackBar10,
-            trackBar11,
-            trackBar12,
-            trackBar13,
-            trackBar14,
-            textBox1,
-            textBox2,
-            textBox3,
-            textBox4,
-            textBox5,
-            textBox6,
-            textBox7,
-            textBox8,
-            textBox9,
-            textBox10,
-            label2,
-            label3,
-            label4,
-            label5,
-            label6,
-            label7,
-            label8,
-            label9,
-            label10,
-            label11,
-            button1
-        };
-           
-            if (checkBox1.Checked) {
-               foreach(var control in controls)
-                {
-                    control.Visible = false;
-                }
-            }
-            else
-            {
-                foreach (var control in controls)
-                {
-                    control.Visible = true;
-                }
-            }
-        }
     }
 }
